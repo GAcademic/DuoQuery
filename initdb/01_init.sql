@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS demo (
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
+
+INSERT INTO demo (name)
+SELECT 'Alice'
+WHERE NOT EXISTS (SELECT 1 FROM demo);
