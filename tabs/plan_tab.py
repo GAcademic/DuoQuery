@@ -4,6 +4,7 @@ from collections import Counter
 
 from db import is_select, run_explain
 
+
 def extract_plan_summary(plan_json):
     root = plan_json[0]["Plan"]
     nodes = []
@@ -20,10 +21,8 @@ def extract_plan_summary(plan_json):
             "Startup Cost": node.get("Startup Cost"),
             "Total Cost": node.get("Total Cost"),
             "Plan Rows": node.get("Plan Rows"),
-            "Plan Width": node.get("Plan Width"),
-            "Actual Startup Time": node.get("Actual Startup Time"),
-            "Actual Total Time": node.get("Actual Total Time"),
             "Actual Rows": node.get("Actual Rows"),
+            "Actual Total Time": node.get("Actual Total Time"),
             "Actual Loops": node.get("Actual Loops", node.get("Loops")),
             "Filter": node.get("Filter"),
             "Index Cond": node.get("Index Cond"),
@@ -49,6 +48,7 @@ def extract_plan_summary(plan_json):
     actual_rows = root.get("Actual Rows")
     row_diff = None
     row_ratio = None
+
     if estimated_rows is not None and actual_rows is not None:
         row_diff = actual_rows - estimated_rows
         row_ratio = (actual_rows / estimated_rows) if estimated_rows else None
@@ -65,21 +65,27 @@ def extract_plan_summary(plan_json):
         "row_ratio": row_ratio,
     }
 
+
 def render_plan_tab():
     st.subheader("Plan de ejecución")
-    st.caption("EXPLAIN muestra el plan estimado. EXPLAIN ANALYZE ejecuta la consulta y añade tiempos y filas reales.")
-
-    query_plan = st.text_area(
-        "Consulta para analizar",
-        "SELECT film_id, title, release_year FROM film LIMIT 10;",
-        height=180,
-        key="query_plan",
+    st.markdown(
+        """
+**EXPLAIN** muestra el plan que PostgreSQL cree que va a usar, sin ejecutar la consulta.  
+**EXPLAIN ANALYZE** ejecuta la consulta y añade tiempos y filas reales.
+        """
     )
 
     modo_plan = st.selectbox(
         "Tipo de plan",
         ["EXPLAIN", "EXPLAIN ANALYZE"],
         key="modo_plan",
+    )
+
+    query_plan = st.text_area(
+        "Consulta para analizar",
+        "SELECT film_id, title, release_year FROM film LIMIT 10;",
+        height=180,
+        key="query_plan",
     )
 
     ejecutar_plan = st.button("Analizar plan", key="run_plan")
@@ -136,6 +142,6 @@ def render_plan_tab():
 
                 with st.expander("Ver JSON completo del plan"):
                     st.json(plan)
+
         except Exception as e:
             st.error(f"Error analizando el plan: {e}")
-
