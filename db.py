@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import sqlparse
 from psycopg2.extras import RealDictCursor
 
 DB_HOST = os.getenv("DB_HOST", "db")
@@ -93,5 +94,23 @@ def run_explain(query, params=None, analyze=True, buffers=True, verbose=True, fo
             conn.close()
 
 def is_select(query):
-    q = query.strip().lower()
-    return q.startswith("select") or q.startswith("with")
+    """
+    Valida que la query sea una unica sentencia de lectura (SELECT, o WITH ... SELECT).
+
+    A diferencia de un simple startswith(), esto rechaza:
+    - varias sentencias apiladas separadas por ';' (p. ej. 'SELECT 1; DROP TABLE film;'),
+    - sentencias no-SELECT precedidas de comentarios (p. ej. '-- x\nDROP TABLE film;'),
+    - cadenas vacias o solo con comentarios/espacios.
+    """
+    if not query or not query.strip():
+        return False
+
+    statements = [
+        s for s in sqlparse.parse(query)
+        if s.token_first(skip_cm=True) is not None
+    ]
+
+    if len(statements) != 1:
+        return False
+
+    return statements[0].get_type() == "SELECT"
