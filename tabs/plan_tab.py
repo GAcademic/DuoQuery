@@ -29,6 +29,24 @@ def highlight_node_types(row):
     return [style] * len(row)
 
 
+def render_node_legend():
+    """
+    Construye la leyenda de colores del plan a partir de NODE_TYPE_COLORS,
+    para que solo haya un sitio (el diccionario) donde tocar los colores.
+    Agrupa los tipos de nodo que comparten color en una misma linea.
+    """
+    color_to_labels = {}
+    for node_type, color in NODE_TYPE_COLORS.items():
+        color_to_labels.setdefault(color, []).append(node_type)
+
+    lines = []
+    for color, labels in color_to_labels.items():
+        label = " / ".join(labels)
+        lines.append(
+            f'<span style="background-color:{color};padding:2px 10px;">&nbsp;</span> {label}'
+        )
+
+    st.markdown("<br>".join(lines), unsafe_allow_html=True)
 
 
 def extract_plan_summary(plan_json):
@@ -159,15 +177,13 @@ def render_plan_tab():
 
 
                 st.markdown("### Resumen de nodos")
-                st.caption(
-                    "Colores: Seq Scan = rojo | Index/Index Only/Bitmap Heap Scan = verde | "
-                    "Nested Loop = amarillo | Hash Join = azul | Merge Join = morado"
-                )
+                render_node_legend()
                 nodes_df = pd.DataFrame(summary["nodes"])
                 st.dataframe(
                     nodes_df.style.apply(highlight_node_types, axis=1),
                     use_container_width=True,
                 )
+
 
                 st.markdown("### Tipos de nodo detectados")
                 df_counts = pd.DataFrame(
