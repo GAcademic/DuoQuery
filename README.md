@@ -9,6 +9,15 @@ Herramienta didáctica para el análisis de consultas SQL y planes de ejecución
 - Streamlit
 - Docker
 
+## Dependencias principales
+
+- streamlit: interfaz web de la aplicación.
+- psycopg2-binary: conexión con PostgreSQL.
+- pandas: gestión de resultados y tablas.
+- sqlparse: validación de que las consultas sean únicamente SELECT.
+
+Las versiones concretas de las dependencias están establecidas en el fichero `requirements.txt`. Se incluye también `numpy` y `pyarrow` como dependencias secundarias, fijadas para evitar un problema de compatibilidad detectado entre versiones recientes de estas librerías.
+
 ## Ejecución
 
 docker compose up --build
