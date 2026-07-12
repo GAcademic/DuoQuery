@@ -49,6 +49,17 @@ def render_node_legend():
     st.markdown("<br>".join(lines), unsafe_allow_html=True)
 
 
+# Mensajes de ayuda por tipo de nodo 
+# Explican el tipo de nodo y lo que implica cada uno.
+# Se usa dentro de walk().
+NODE_ALERTS = {
+    "Seq Scan": "Se detecto un Seq Scan. PostgreSQL esta recorriendo toda la tabla.",
+    "Nested Loop": "Se detecto un Nested Loop. Puede ser eficiente con pocas filas, pero costoso con conjuntos de datos grandes.",
+    "Hash Join": "Se detecto un Hash Join. PostgreSQL crea una tabla hash para realizar la union.",
+    "Merge Join": "Se detecto un Merge Join. PostgreSQL une resultados previamente ordenados.",
+}
+
+
 def extract_plan_summary(plan_json):
     root = plan_json[0]["Plan"]
     nodes = []
@@ -74,14 +85,9 @@ def extract_plan_summary(plan_json):
         })
         counter[node_type] += 1
 
-        if node_type == "Seq Scan":
-            alerts.append("Se detectó un Seq Scan.")
-        if node_type == "Nested Loop":
-            alerts.append("Se detectó un Nested Loop.")
-        if node_type == "Hash Join":
-            alerts.append("Se detectó un Hash Join.")
-        if node_type == "Merge Join":
-            alerts.append("Se detectó un Merge Join.")
+        message = NODE_ALERTS.get(node_type)
+        if message:
+            alerts.append(message)
 
         for child in node.get("Plans", []):
             walk(child, depth + 1)
