@@ -1,7 +1,6 @@
 import os
 import psycopg2
 import sqlparse
-from psycopg2.extras import RealDictCursor
 
 DB_HOST = os.getenv("DB_HOST", "db")
 DB_PORT = os.getenv("DB_PORT", "5432")
