@@ -5,6 +5,32 @@ from collections import Counter
 from db import is_select, run_explain
 
 
+# Colores de fondo por tipo de nodo del plan de ejecucion (EXPLAIN).
+# Es un diccionario (Tipo de nodo -> color) 
+NODE_TYPE_COLORS = {
+    "Seq Scan": "#ffdddd",          # rojo suave: escaneo secuencial (posible anti-patron)
+    "Index Scan": "#ddffdd",        # verde: escaneo por indice
+    "Index Only Scan": "#ddffdd",   # verde: variante de escaneo por indice
+    "Bitmap Heap Scan": "#ddffdd",  # verde: tambien se apoya en un indice
+    "Nested Loop": "#fff4cc",       # amarillo: join anidado
+    "Hash Join": "#ddeeff",         # azul: join por hash
+    "Merge Join": "#eee0ff",        # morado: join por mezcla (merge)
+}
+
+
+def highlight_node_types(row):
+    """
+    Devuelve el estilo CSS para colorear la fila completa de la tabla de nodos
+    segun su Node Type, usando NODE_TYPE_COLORS. Permite detectar de un
+    vistazo escaneos costosos o el tipo de join sin leer cada fila.
+    """
+    color = NODE_TYPE_COLORS.get(row["Node Type"], "")
+    style = f"background-color: {color}" if color else ""
+    return [style] * len(row)
+
+
+
+
 def extract_plan_summary(plan_json):
     root = plan_json[0]["Plan"]
     nodes = []
@@ -131,8 +157,17 @@ def render_plan_tab():
                 if summary["alerts"]:
                     st.warning(" | ".join(summary["alerts"]))
 
+
                 st.markdown("### Resumen de nodos")
-                st.dataframe(pd.DataFrame(summary["nodes"]), use_container_width=True)
+                st.caption(
+                    "Colores: Seq Scan = rojo | Index/Index Only/Bitmap Heap Scan = verde | "
+                    "Nested Loop = amarillo | Hash Join = azul | Merge Join = morado"
+                )
+                nodes_df = pd.DataFrame(summary["nodes"])
+                st.dataframe(
+                    nodes_df.style.apply(highlight_node_types, axis=1),
+                    use_container_width=True,
+                )
 
                 st.markdown("### Tipos de nodo detectados")
                 df_counts = pd.DataFrame(
