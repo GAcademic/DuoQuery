@@ -1,0 +1,14 @@
+query_id,group,filas_devueltas,filas_descartadas,porcentaje_desperdicio,ancho_fila_estimado,bytes_transferencia_estimados
+Q1,projection,200,0,0.0,25,5000
+Q1B,projection,1000000,0,0.0,29,29000000
+Q1W,projection,1000000,0,0.0,645,645000000
+Q2,projection,200,0,0.0,13,2600
+Q2B,projection,1000000,0,0.0,13,13000000
+Q2W,projection,1000000,0,0.0,13,13000000
+Q3,filter,200,0,0.0,25,5000
+Q4,filter,1,199,99.5,25,25
+Q5,waste,39,961,96.1,390,15210
+Q6,waste,1,0,0.0,390,390
+Q7,join,2367,0,0.0,47,111249
+Q8,join,5462,0,0.0,28,152936
+STAR,didactic,751,249,24.9,390,292890
