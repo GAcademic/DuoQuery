@@ -83,6 +83,21 @@ def std(values):
     return statistics.stdev(values)
 
 
+def bytes_transferencia(ancho_fila, filas):
+    """
+    Coste estimado de transferencia, en bytes.
+
+    Es el ancho medio de la fila de salida (Plan Width, estimado por el planner)
+    multiplicado por el numero de filas devueltas.
+
+    IMPORTANTE: es un indicador didactico, NO energia y NO una medida observada.
+    Bajo EXPLAIN ANALYZE la salida se descarta y no se transfiere nada al
+    cliente, por lo que no existen bytes reales que medir.
+    """
+
+    return ancho_fila * filas
+
+
 def run_benchmark():
 
     conn = get_connection()
@@ -230,7 +245,10 @@ def run_benchmark():
                     ancho_fila_sample,
 
                 "bytes_transferencia_estimados":
-                    ancho_fila_sample * waste_sample["filas_devueltas"],
+                    bytes_transferencia(
+                        ancho_fila_sample,
+                        waste_sample["filas_devueltas"],
+                    ),
             })
 
     finally:
