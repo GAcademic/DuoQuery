@@ -1,0 +1,5 @@
+# Dependencias de desarrollo.
+# Incluye las de produccion y anade las necesarias para ejecutar los tests.
+-r requirements.txt
+
+pytest==8.3.3
