@@ -1,9 +1,8 @@
 import streamlit as st
 
-from db import is_select, run_explain
-from energy.parser import extract_metrics
+from db import is_select
+from estimation import estimar_consulta
 from energy.model import (
-    estimate_energy, wasted_work,
     FACTORES_EMISION, PAIS_POR_DEFECTO,
     CPU_POWER_W, E_IO, E_HIT,
 )
@@ -47,11 +46,10 @@ Estima la energía y las emisiones de una consulta a partir de su plan de ejecuc
             if not is_select(query):
                 st.error("Solo se permiten sentencias SELECT.")
             else:
-                plan = run_explain(query, analyze=True, buffers=True,
-                                   verbose=False, format_json=True)
-                metrics = extract_metrics(plan)
-                energia = estimate_energy(metrics, emission_factor=factor_emision)
-                desperdicio = wasted_work(metrics)
+                resultado = estimar_consulta(query, factor_emision)
+                metrics = resultado["metrics"]
+                energia = resultado["energia"]
+                desperdicio = resultado["desperdicio"]
 
                 c1, c2, c3 = st.columns(3)
                 c1.metric("Energía total", f'{energia["energia_total_j"]:.4f} J')
