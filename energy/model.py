@@ -109,3 +109,19 @@ def wasted_work(metrics):
         "filas_descartadas": descartadas,
         "porcentaje_desperdicio": porcentaje,
     }
+
+
+def bytes_transferencia(ancho_fila, filas):
+    """
+    Indicador didactico de coste estimado de transferencia, en bytes.
+
+    Es el ancho medio de la fila de salida (Plan Width, estimado por el planner)
+    multiplicado por el numero de filas devueltas.
+
+    IMPORTANTE: NO es energia y NO es una medida observada. Bajo EXPLAIN ANALYZE
+    la salida se descarta y no se transfiere nada al cliente, por lo que no
+    existen bytes reales que medir. Se mantiene separado del modelo energetico,
+    igual que wasted_work.
+    """
+
+    return ancho_fila * filas

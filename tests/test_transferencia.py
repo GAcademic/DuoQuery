@@ -7,7 +7,7 @@ bytes = ancho de fila estimado x filas devueltas.
 
 import pytest
 
-from validation.benchmark_runner import bytes_transferencia
+from energy.model import bytes_transferencia
 
 
 @pytest.mark.parametrize("ancho, filas, esperado", [

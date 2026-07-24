@@ -21,7 +21,7 @@ from db import get_connection
 from validation.benchmark_queries import ALL_QUERIES
 
 from energy.parser import extract_metrics
-from energy.model import estimate_energy, wasted_work
+from energy.model import estimate_energy, wasted_work, bytes_transferencia
 
 
 N_RUNS = 100
@@ -81,21 +81,6 @@ def std(values):
         return 0.0
 
     return statistics.stdev(values)
-
-
-def bytes_transferencia(ancho_fila, filas):
-    """
-    Coste estimado de transferencia, en bytes.
-
-    Es el ancho medio de la fila de salida (Plan Width, estimado por el planner)
-    multiplicado por el numero de filas devueltas.
-
-    IMPORTANTE: es un indicador didactico, NO energia y NO una medida observada.
-    Bajo EXPLAIN ANALYZE la salida se descarta y no se transfiere nada al
-    cliente, por lo que no existen bytes reales que medir.
-    """
-
-    return ancho_fila * filas
 
 
 def run_benchmark():
