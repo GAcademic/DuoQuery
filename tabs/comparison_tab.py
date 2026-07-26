@@ -6,7 +6,7 @@ from energy.model import FACTORES_EMISION, PAIS_POR_DEFECTO
 from validation.benchmark_queries import PAREJAS_DIDACTICAS, QUERIES_POR_ID
 
 
-def render_comparativa_tab():
+def render_comparison_tab():
     st.subheader("Comparativa de consultas")
     st.markdown(
         "Compara el impacto energético, las emisiones de CO₂e, el tráfico de "
