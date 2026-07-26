@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Figuras generadas (derivadas de los CSV, se regeneran con validation/plots.py)
+validation/figures/
