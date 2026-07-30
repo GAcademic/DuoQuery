@@ -20,7 +20,7 @@ Las versiones concretas de las dependencias están establecidas en el fichero `r
 
 ## Ejecución
 
-docker compose up --build
+docker compose up -d --build
 
 ## Detener ejecución
 
@@ -32,3 +32,9 @@ docker compose down -v
 - Exploración del esquema
 - Análisis de planes EXPLAIN
 - Estadísticas básicas de ejecución
+
+## Créditos
+
+**Autor:** Eva Molina Jiménez
+**Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática
+**Universidad Internacional de La Rioja (UNIR)** - 2026
