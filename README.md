@@ -36,5 +36,7 @@ docker compose down -v
 ## Créditos
 
 **Autor:** Eva Molina Jiménez
+
 **Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática
+
 **Universidad Internacional de La Rioja (UNIR)** - 2026
