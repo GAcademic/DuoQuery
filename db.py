@@ -4,9 +4,9 @@ import sqlparse
 
 DB_HOST = os.getenv("DB_HOST", "db")
 DB_PORT = os.getenv("DB_PORT", "5432")
-DB_NAME = os.getenv("DB_NAME", "duoquery")
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
+DB_NAME = os.getenv("DB_NAME", "pagila")
+DB_USER = os.getenv("DB_USER", "duoquery")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "duoquery")
 
 def get_connection():
     return psycopg2.connect(
