@@ -23,7 +23,7 @@ def fetch_all(query, params=None):
     try:
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute(query, params or ())
+        cur.execute(query, params or None)
         return cur.fetchall()
     finally:
         if cur is not None:
@@ -37,7 +37,7 @@ def fetch_one(query, params=None):
     try:
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute(query, params or ())
+        cur.execute(query, params or None)
         return cur.fetchone()
     finally:
         if cur is not None:
@@ -51,7 +51,7 @@ def run_query(query, params=None):
     try:
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute(query, params or ())
+        cur.execute(query, params or None)
 
         if cur.description is None:
             conn.commit()
@@ -84,7 +84,7 @@ def run_explain(query, params=None, analyze=True, buffers=True, verbose=True, fo
             options.append("FORMAT JSON")
 
         explain_sql = f"EXPLAIN ({', '.join(options)}) {query}"
-        cur.execute(explain_sql, params or ())
+        cur.execute(explain_sql, params or None)
         return cur.fetchone()[0]
     finally:
         if cur is not None:
