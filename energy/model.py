@@ -95,8 +95,11 @@ def estimate_energy(metrics, cpu_power_w=CPU_POWER_W, e_io=E_IO,
 
 def wasted_work(metrics):
     """
-    Indicador didactico de 'trabajo desperdiciado' (NO es energia):
-    filas leidas y descartadas por filtros frente a filas devueltas.
+    Indicador didactico de 'trabajo desperdiciado' (NO es energia): hace visible
+    que parte del trabajo realizado por PostgreSQL queda asociada a filas que no
+    forman parte del resultado final (leidas y descartadas por filtros), frente a
+    las filas devueltas. Es reducible con un mejor acceso (indice o filtro mas
+    selectivo).
 
     Devuelve dict con filas_devueltas, filas_descartadas y porcentaje_desperdicio.
     """

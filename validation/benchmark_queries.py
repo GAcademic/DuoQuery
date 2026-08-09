@@ -264,9 +264,9 @@ PAREJAS_DIDACTICAS = [
             "En cambio, la consulta por clave primaria accede directamente al "
             "registro buscado mediante el índice (Index Scan), reduciendo al mínimo "
             "el trabajo desperdiciado.\n\n"
-            "Lección clave: Leer datos para descartarlos después supone un esfuerzo "
-            "ineficiente del motor que impacta directamente en el consumo "
-            "energético."
+            "Lección clave: cuando el motor recorre muchas filas para acabar "
+            "descartándolas, gran parte de su trabajo no contribuye al resultado "
+            "final; un índice o un filtro más selectivo le evita tener que leerlas."
         ),
     },
 ]
