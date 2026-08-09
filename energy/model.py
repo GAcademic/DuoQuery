@@ -23,9 +23,10 @@ relacion de proporcionalidad para el coste de memoria frente a disco.
 CPU_POWER_W = 28.0
 
 # Energia por bloque de 8 KB de E/S a disco, en julios.
-# Derivado del SSD Samsung PM9A1: 5,8 W (potencia activa de lectura)
-# / 7,0e9 B/s (lectura secuencial) * 8192 B ~= 6,8e-6 J/bloque.
-E_IO = 6.8e-6
+# Derivado del SSD Samsung PM9A1: 6,2 W (potencia activa de lectura, dato oficial
+# de la ficha del 980 PRO equivalente) / 7,0e9 B/s (lectura secuencial)
+# * 8192 B ~= 7,3e-6 J/bloque.
+E_IO = 7.3e-6
 
 # Energia por bloque de 8 KB servido desde cache (memoria).
 # Eleccion de modelado: el acceso a memoria es mas barato que el de disco.
