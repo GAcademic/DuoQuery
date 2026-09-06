@@ -53,7 +53,7 @@ def render_node_legend():
 # Explican el tipo de nodo y lo que implica cada uno.
 # Se usa dentro de walk().
 NODE_ALERTS = {
-    "Seq Scan": "Se detecto un Seq Scan. PostgreSQL esta recorriendo toda la tabla.",
+    "Seq Scan": "Se detecto un Seq Scan. PostgreSQL recorre la tabla secuencialmente; en tablas grandes sin un filtro selectivo o un LIMIT que lo detenga, puede leerla entera.",
     "Nested Loop": "Se detecto un Nested Loop. Puede ser eficiente con pocas filas, pero costoso con conjuntos de datos grandes.",
     "Hash Join": "Se detecto un Hash Join. PostgreSQL crea una tabla hash para realizar la union.",
     "Merge Join": "Se detecto un Merge Join. PostgreSQL une resultados previamente ordenados.",
