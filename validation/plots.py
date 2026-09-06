@@ -81,7 +81,7 @@ def figura_2_desglose(energy):
     ax.bar([i + w for i in x], disco, w, label="Disco", color=GRIS)
     ax.set_yscale("log")
     ax.set_ylabel("Energía estimada (J, escala logarítmica)")
-    ax.set_title("Energía por componente\n(tablas grande y ancha)")
+    ax.set_title("Aporte energético por componente")
     ax.set_xticks(list(x))
     ax.set_xticklabels(ids)
     ax.legend()
@@ -126,7 +126,7 @@ def figura_3_select_star(energy, eff):
     ax2.set_xticklabels(tablas)
     ax2.legend()
 
-    fig.suptitle("SELECT * frente a proyección de columnas")
+    fig.suptitle("Energía y transferencia estimadas")
     _guardar(fig, "3_select_star.png")
 
 
@@ -139,7 +139,7 @@ def figura_4_desperdiciado(eff):
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.bar(ids, valores, color=NARANJA)
     ax.set_ylabel("Trabajo desperdiciado (%)")
-    ax.set_title("Filas leídas y descartadas por filtros")
+    ax.set_title("Trabajo desperdiciado por consulta")
     ax.set_ylim(0, 105)
     for i, v in enumerate(valores):
         ax.text(i, v + 1.5, f"{v:.1f}%", ha="center", va="bottom", fontsize=9)
@@ -157,7 +157,7 @@ def figura_5_co2e_pais():
     fig, ax = plt.subplots(figsize=(9, 5))
     ax.barh(paises, factores, color=colores)
     ax.set_xlabel("Factor de emisión (kg CO₂e por kWh)")
-    ax.set_title("Emisiones de CO₂e por kWh según país y fuente")
+    ax.set_title("Factor de emisión por país y fuente")
     ax.grid(axis="x", linestyle=":", alpha=0.6)
     ax.legend(handles=[
         Patch(color=ROJO, label="España (MITECO / Ember)"),
