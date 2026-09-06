@@ -8,6 +8,19 @@ from energy.model import (
 )
 
 
+def _fmt_j(x):
+    """Formatea una energía en julios; usa notación científica si es muy pequeña."""
+    if x == 0:
+        return "0 J"
+    if abs(x) < 1e-3:
+        return f"{x:.2e} J"
+    return f"{x:.4f} J"
+
+
+def _bloques(n):
+    return f'{n} bloque{"s" if n != 1 else ""}'
+
+
 def render_energy_tab():
     st.subheader("Estimación energética")
     st.markdown(
@@ -57,9 +70,9 @@ Estima la energía y las emisiones de una consulta a partir de su plan de ejecuc
                 c3.metric("Emisiones", f'{energia["co2e_kg"]:.3e} kg CO₂e')
 
                 st.markdown("### Desglose de energía")
-                st.write(f'- CPU: {energia["energia_cpu_j"]:.4f} J (tiempo {metrics["tiempo_s"]*1000:.3f} ms)')
-                st.write(f'- Memoria (caché): {energia["energia_memoria_j"]:.6f} J ({metrics["bloques_cache"]} bloques)')
-                st.write(f'- Disco: {energia["energia_disco_j"]:.6f} J ({metrics["bloques_disco"]} bloques)')
+                st.write(f'- CPU: {_fmt_j(energia["energia_cpu_j"])} (tiempo {metrics["tiempo_s"]*1000:.3f} ms)')
+                st.write(f'- Memoria (caché): {_fmt_j(energia["energia_memoria_j"])} ({_bloques(metrics["bloques_cache"])})')
+                st.write(f'- Disco: {_fmt_j(energia["energia_disco_j"])} ({_bloques(metrics["bloques_disco"])})')
 
                 st.markdown("### Detalle de bloques de disco")
                 st.write(
