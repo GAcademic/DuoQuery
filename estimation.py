@@ -1,14 +1,14 @@
 """
-estimation.py - Orquestador de la estimacion de una consulta.
+estimation.py - Orquestador de la estimación de una consulta.
 
-Reune en un solo sitio el calculo que necesitan las pestanas de Energia y de
-Comparativa: ejecuta el plan, extrae las metricas y aplica el modelo. No importa
+Reúne en un solo sitio el cálculo que necesitan las pestanas de Energía y de
+Comparativa: ejecuta el plan, extrae las métricas y aplica el modelo. No importa
 Streamlit (no pinta nada) y no vive dentro de energy/ porque toca la base de
-datos; asi energy/ se mantiene puro y testeable.
+datos; así energy/ se mantiene puro y testeable.
 
-La validacion de que la consulta es un SELECT (is_select) se hace en la capa de
-pestana, no aqui: mostrar el error es responsabilidad de la interfaz. Esta
-funcion asume que recibe un SELECT valido.
+La validación de que la consulta es un SELECT (is_select) se hace en la capa de
+pestaña, no aquí: mostrar el error es responsabilidad de la interfaz. Esta
+función asume que recibe un SELECT válido.
 """
 
 from db import run_explain
@@ -18,22 +18,22 @@ from energy.model import estimate_energy, wasted_work, bytes_transferencia
 
 def estimar_consulta(query, factor_emision):
     """
-    Estima el coste de una consulta a partir de su plan de ejecucion.
+    Estima el coste de una consulta a partir de su plan de ejecución.
 
-    Parametros
+    Parámetros
     ----------
     query : str
         Sentencia SELECT ya validada.
     factor_emision : float
-        Factor de emision (kg CO2e / kWh) del pais seleccionado.
+        Factor de emisión (kg CO2e / kWh) del país seleccionado.
 
     Devuelve
     --------
     dict con:
-        metrics              metricas extraidas del plan (parser.extract_metrics)
-        energia              resultado del modelo energetico (estimate_energy)
+        metrics              métricas extraídas del plan (parser.extract_metrics)
+        energia              resultado del modelo energético (estimate_energy)
         desperdicio          indicador de trabajo desperdiciado (wasted_work)
-        bytes_transferencia  coste estimado de transferencia (indicador didactico)
+        bytes_transferencia  coste estimado de transferencia (indicador didáctico)
     """
     plan = run_explain(query, analyze=True, buffers=True,
                        verbose=False, format_json=True)

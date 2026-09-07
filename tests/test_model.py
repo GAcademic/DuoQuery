@@ -1,7 +1,7 @@
 """
 Tests de energy/model.py (estimate_energy, wasted_work).
 
-Criterio de comparacion: los enteros y recuentos se comparan con ==; los valores
+Criterio de comparación: los enteros y recuentos se comparan con ==; los valores
 decimales calculados (kWh, CO2e, porcentajes) con pytest.approx, porque los
 floats se almacenan en binario de forma aproximada.
 """
@@ -20,11 +20,11 @@ from energy.model import (
 
 def test_formula_con_parametros_explicitos():
     """
-    Se pasan parametros inventados y redondos en lugar de las constantes reales:
-    asi se prueba la FORMULA, no el valor de la constante. Si manana cambia
+    Se pasan parámetros inventados y redondos en lugar de las constantes reales:
+    así se prueba la FÓRMULA, no el valor de la constante. Si cambia
     CPU_POWER_W, este test debe seguir pasando.
 
-    De paso verifica que los parametros sobreescribibles surten efecto.
+    De paso verifica que los parámetros sobreescribibles surten efecto.
     """
     metrics = {"tiempo_s": 2.0, "bloques_cache": 10, "bloques_disco": 5}
 

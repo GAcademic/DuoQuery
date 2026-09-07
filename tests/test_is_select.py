@@ -1,8 +1,8 @@
 """
 Tests de db.is_select().
 
-Los casos son variantes del mismo patron, asi que se agrupan con parametrize:
-pytest ejecuta la funcion una vez por tupla y cuenta cada una como un test
+Los casos son variantes del mismo patrón, así que se agrupan con parametrize:
+pytest ejecuta la función una vez por tupla y cuenta cada una como un test
 independiente. Se corresponden con el contrato descrito en el docstring de
 is_select().
 """

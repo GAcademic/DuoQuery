@@ -13,7 +13,7 @@ def render_comparison_tab():
         "datos estimado y el trabajo desperdiciado entre dos consultas SQL."
     )
 
-    # Factor de emision segun el pais.
+    # Factor de emisión según el país.
     paises = sorted(FACTORES_EMISION.keys())
     pais = st.selectbox(
         "País (factor de emisión de la red eléctrica)",
@@ -109,9 +109,9 @@ def _render_columna(col, titulo, resultado):
 
 def _render_veredicto(res_a, res_b):
     """
-    Lectura rapida calculada en vivo a partir de las dos estimaciones:
-    diferencias de energia y de transferencia. Es la parte que cambia en cada
-    ejecucion; la explicacion conceptual (fija) la aporta la pareja didactica.
+    Lectura rápida calculada en vivo a partir de las dos estimaciones:
+    diferencias de energía y de transferencia. Es la parte que cambia en cada
+    ejecución;la explicación conceptual (fija) la aporta la pareja didáctica.
     """
     ea = res_a["energia"]["energia_total_j"]
     eb = res_b["energia"]["energia_total_j"]
@@ -124,8 +124,8 @@ def _render_veredicto(res_a, res_b):
 
 
 def _fmt_julios(j):
-    """Energia en julios con cifras significativas (legible para valores grandes
-    y minusculos)."""
+    """Energía en julios con cifras significativas (legible para valores grandes
+    y muy pequeños)."""
     return f"{j:.3g} J"
 
 

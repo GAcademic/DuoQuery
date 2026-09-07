@@ -181,13 +181,13 @@ STAR_QUERY = {
 ALL_QUERIES = BENCHMARK_QUERIES + [STAR_QUERY]
 
 
-# Indice por id, para resolver las consultas de las parejas didacticas.
+# Índice por id, para resolver las consultas de las parejas didácticas.
 QUERIES_POR_ID = {q["id"]: q for q in ALL_QUERIES}
 
 
-# Parejas del modo guiado de la pestana Comparativa. Reutilizan consultas ya
-# validadas del benchmark (no se anade ninguna consulta nueva). Cada pareja lleva
-# una explicacion conceptual (el porque invariable); los numeros concretos los
+# Parejas del modo guiado de la pestaña Comparativa. Reutilizan consultas ya
+# validadas del benchmark (no se añade ninguna consulta nueva). Cada pareja lleva
+# una explicación conceptual (el porqué invariable); los números concretos los
 # aporta el veredicto calculado en vivo.
 PAREJAS_DIDACTICAS = [
     {

@@ -30,7 +30,7 @@ Estima la energía y las emisiones de una consulta a partir de su plan de ejecuc
         """
     )
 
-    # Factor de emision segun el pais (unico parametro seleccionable).
+    # Factor de emisión según el país (único parámetro seleccionable).
     paises = sorted(FACTORES_EMISION.keys())
     pais = st.selectbox(
         "País (factor de emisión de la red eléctrica)",
@@ -41,7 +41,7 @@ Estima la energía y las emisiones de una consulta a partir de su plan de ejecuc
     factor_emision, fuente = FACTORES_EMISION[pais]
     st.caption(f"Factor seleccionado: {factor_emision} kg CO₂e/kWh · Fuente: {fuente}")
 
-    # Parametros fijos del modelo (informativos, no editables).
+    # Parámetros fijos del modelo (informativos, no editables).
     with st.expander("Parámetros del modelo (fijos)"):
         st.write(f"- Potencia de CPU: {CPU_POWER_W} W (Intel Core Ultra 7 155H)")
         st.write(f"- Energía por bloque de disco: {E_IO} J (SSD Samsung PM9A1)")

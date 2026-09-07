@@ -1,10 +1,10 @@
 """
-model.py - Modelo energetico.
+model.py - Modelo energético.
 
-Aplica la formula de estimacion energetica a las metricas extraidas del plan
-(ver parser.py) y devuelve la energia en julios, kWh y las emisiones en CO2e.
+Aplica la fórmula de estimación energética a las métricas extraídas del plan
+(ver parser.py) y devuelve la energía en julios, kWh y las emisiones en CO2e.
 
-Modelo (estimacion en unidades fisicas):
+Modelo (estimación en unidades físicas):
     E_total(J) = E_CPU + E_memoria + E_disco
         E_CPU     = CPU_POWER_W * tiempo_s
         E_memoria = E_HIT * bloques_cache
@@ -12,33 +12,33 @@ Modelo (estimacion en unidades fisicas):
     kWh  = E_total / 3_600_000
     CO2e = kWh * EMISSION_FACTOR
 
-Los parametros se derivan del hardware de referencia (equipo anfitrion) y de una
-relacion de proporcionalidad para el coste de memoria frente a disco.
+Los parámetros se derivan del hardware de referencia (equipo anfitrion) y de una
+relación de proporcionalidad para el coste de memoria frente a disco.
 """
 
-# --- Parametros del modelo (hardware de referencia; ver memoria) ---
+# --- Parámetros del modelo (hardware de referencia; ver memoria) ---
 
 # Potencia efectiva de CPU, en vatios.
 # Intel Core Ultra 7 155H, Processor Base Power (ficha de Intel).
 CPU_POWER_W = 28.0
 
-# Energia por bloque de 8 KB de E/S a disco, en julios.
+# Energía por bloque de 8 KB de E/S a disco, en julios.
 # Derivado del SSD Samsung PM9A1: 6,2 W (potencia activa de lectura, dato oficial
 # de la ficha del 980 PRO equivalente) / 7,0e9 B/s (lectura secuencial)
 # * 8192 B ~= 7,3e-6 J/bloque.
 E_IO = 7.3e-6
 
-# Energia por bloque de 8 KB servido desde cache (memoria).
+# Energía por bloque de 8 KB servido desde cache (memoria).
 # Eleccion de modelado: el acceso a memoria es mas barato que el de disco.
 E_HIT = E_IO / 100
 
-# Factor de emision de la red electrica, kg de CO2e por kWh.
+# Factor de emisión de la red eléctrica, kg de CO2e por kWh.
 # MITECO, mix electrico nacional 2025.
 EMISSION_FACTOR = 0.258
 
-# Factores de emision por pais (kg CO2e por kWh) y su fuente.
+# Factores de emisión por país (kg CO2e por kWh) y su fuente.
 # Fuente internacional: Our World in Data / Ember (2026), intensidad de ciclo de
-# vida de la electricidad, ano 2025. Para Espana se incluye tambien el factor
+# vida de la electricidad, año 2025. Para España se incluye también el factor
 # oficial de MITECO (mix nacional 2025).
 FACTORES_EMISION = {
     "Noruega": (0.028, "Ember / Our World in Data"),
@@ -62,9 +62,9 @@ JOULES_PER_KWH = 3_600_000
 def estimate_energy(metrics, cpu_power_w=CPU_POWER_W, e_io=E_IO,
                     e_hit=E_HIT, emission_factor=EMISSION_FACTOR):
     """
-    Aplica el modelo energetico a las metricas del plan.
+    Aplica el modelo energético a las métricas del plan.
 
-    Parametros
+    Parámetros
     ----------
     metrics : dict
         Salida de parser.extract_metrics(): usa tiempo_s, bloques_cache y bloques_disco.
@@ -96,10 +96,10 @@ def estimate_energy(metrics, cpu_power_w=CPU_POWER_W, e_io=E_IO,
 
 def wasted_work(metrics):
     """
-    Indicador didactico de 'trabajo desperdiciado' (NO es energia): hace visible
+    Indicador didáctico de 'trabajo desperdiciado' (NO es energía): hace visible
     que parte del trabajo realizado por PostgreSQL queda asociada a filas que no
-    forman parte del resultado final (leidas y descartadas por filtros), frente a
-    las filas devueltas. Es reducible con un mejor acceso (indice o filtro mas
+    forman parte del resultado final (leídas y descartadas por filtros), frente a
+    las filas devueltas. Es reducible con un mejor acceso (índice o filtro más
     selectivo).
 
     Devuelve dict con filas_devueltas, filas_descartadas y porcentaje_desperdicio.
@@ -117,14 +117,14 @@ def wasted_work(metrics):
 
 def bytes_transferencia(ancho_fila, filas):
     """
-    Indicador didactico de coste estimado de transferencia, en bytes.
+    Indicador didáctico de coste estimado de transferencia, en bytes.
 
     Es el ancho medio de la fila de salida (Plan Width, estimado por el planner)
-    multiplicado por el numero de filas devueltas.
+    multiplicado por el número de filas devueltas.
 
-    IMPORTANTE: NO es energia y NO es una medida observada. Bajo EXPLAIN ANALYZE
+    IMPORTANTE: NO es energía y NO es una medida observada. Bajo EXPLAIN ANALYZE
     la salida se descarta y no se transfiere nada al cliente, por lo que no
-    existen bytes reales que medir. Se mantiene separado del modelo energetico,
+    existen bytes reales que medir. Se mantiene separado del modelo energético,
     igual que wasted_work.
     """
 

@@ -1,8 +1,8 @@
 """
-plots.py - Genera las figuras del capitulo de validacion a partir de los CSV.
+plots.py - Genera las figuras del capítulo de validación a partir de los CSV.
 
 Lee results_energy.csv y results_efficiency.csv (y el diccionario de factores de
-emision del modelo) y produce cinco figuras PNG en validation/figures/.
+emisión del modelo) y produce cinco figuras PNG en validation/figures/.
 
 Los PNG son un derivado determinista de los CSV: no se versionan (ver .gitignore),
 se regeneran ejecutando este script. Se ejecuta desde la raiz del proyecto para
@@ -26,9 +26,9 @@ BASE = Path(__file__).parent
 FIG_DIR = BASE / "figures"
 
 # Paleta consistente para toda la memoria.
-AZUL = "#4C72B0"      # neutro / proyeccion de columnas / CPU
-ROJO = "#C44E52"      # foco: SELECT * (fig. 3) y Espana (fig. 5)
-NARANJA = "#DD8452"   # trabajo desperdiciado (metrica distinta)
+AZUL = "#4C72B0"      # neutro / proyección de columnas / CPU
+ROJO = "#C44E52"      # foco: SELECT * (fig. 3) y España (fig. 5)
+NARANJA = "#DD8452"   # trabajo desperdiciado (métrica distinta)
 MORADO = "#9467BD"    # memoria (paleta accesible, sin rojo/verde)
 GRIS = "#8C8C8C"      # disco
 
@@ -45,7 +45,7 @@ def _guardar(fig, nombre):
     print(f"  {ruta.name}")
 
 
-# --- Figura 1: energia total por consulta -----------------------------------
+# --- Figura 1: energía total por consulta -----------------------------------
 
 def figura_1_energia_total(energy):
     datos = sorted(
@@ -88,7 +88,7 @@ def figura_2_desglose(energy):
     _guardar(fig, "2_desglose_componentes.png")
 
 
-# --- Figura 3: SELECT * frente a proyeccion (energia vs transferencia) -------
+# --- Figura 3: SELECT * frente a proyección (energia vs transferencia) -------
 
 def figura_3_select_star(energy, eff):
     tablas = ["normal", "grande", "ancha"]
@@ -146,7 +146,7 @@ def figura_4_desperdiciado(eff):
     _guardar(fig, "4_trabajo_desperdiciado.png")
 
 
-# --- Figura 5: CO2e por pais -------------------------------------------------
+# --- Figura 5: CO2e por país -------------------------------------------------
 
 def figura_5_co2e_pais():
     items = sorted(FACTORES_EMISION.items(), key=lambda kv: kv[1][0])

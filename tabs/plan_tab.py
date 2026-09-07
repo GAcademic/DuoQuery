@@ -5,13 +5,13 @@ from collections import Counter
 from db import is_select, run_explain
 
 
-# Colores de fondo por tipo de nodo del plan de ejecucion (EXPLAIN).
+# Colores de fondo por tipo de nodo del plan de ejecución (EXPLAIN).
 # Es un diccionario (Tipo de nodo -> color) 
 NODE_TYPE_COLORS = {
     "Seq Scan": "#ffdddd",          # rojo suave: escaneo secuencial (posible anti-patron)
-    "Index Scan": "#ddffdd",        # verde: escaneo por indice
-    "Index Only Scan": "#ddffdd",   # verde: variante de escaneo por indice
-    "Bitmap Heap Scan": "#ddffdd",  # verde: tambien se apoya en un indice
+    "Index Scan": "#ddffdd",        # verde: escaneo por índice
+    "Index Only Scan": "#ddffdd",   # verde: variante de escaneo por índice
+    "Bitmap Heap Scan": "#ddffdd",  # verde: también se apoya en un índice
     "Nested Loop": "#fff4cc",       # amarillo: join anidado
     "Hash Join": "#ddeeff",         # azul: join por hash
     "Merge Join": "#eee0ff",        # morado: join por mezcla (merge)
@@ -21,7 +21,7 @@ NODE_TYPE_COLORS = {
 def highlight_node_types(row):
     """
     Devuelve el estilo CSS para colorear la fila completa de la tabla de nodos
-    segun su Node Type, usando NODE_TYPE_COLORS. Permite detectar de un
+    según su Node Type, usando NODE_TYPE_COLORS. Permite detectar de un
     vistazo escaneos costosos o el tipo de join sin leer cada fila.
     """
     color = NODE_TYPE_COLORS.get(row["Node Type"], "")
@@ -33,7 +33,7 @@ def render_node_legend():
     """
     Construye la leyenda de colores del plan a partir de NODE_TYPE_COLORS,
     para que solo haya un sitio (el diccionario) donde tocar los colores.
-    Agrupa los tipos de nodo que comparten color en una misma linea.
+    Agrupa los tipos de nodo que comparten color en una misma línea.
     """
     color_to_labels = {}
     for node_type, color in NODE_TYPE_COLORS.items():
@@ -53,10 +53,10 @@ def render_node_legend():
 # Explican el tipo de nodo y lo que implica cada uno.
 # Se usa dentro de walk().
 NODE_ALERTS = {
-    "Seq Scan": "Se detecto un Seq Scan. PostgreSQL recorre la tabla secuencialmente; en tablas grandes sin un filtro selectivo o un LIMIT que lo detenga, puede leerla entera.",
-    "Nested Loop": "Se detecto un Nested Loop. Puede ser eficiente con pocas filas, pero costoso con conjuntos de datos grandes.",
-    "Hash Join": "Se detecto un Hash Join. PostgreSQL crea una tabla hash para realizar la union.",
-    "Merge Join": "Se detecto un Merge Join. PostgreSQL une resultados previamente ordenados.",
+    "Seq Scan": "Se detectó un Seq Scan. PostgreSQL recorre la tabla secuencialmente; en tablas grandes sin un filtro selectivo o un LIMIT que lo detenga, puede leerla entera.",
+    "Nested Loop": "Se detectó un Nested Loop. Puede ser eficiente con pocas filas, pero costoso con conjuntos de datos grandes.",
+    "Hash Join": "Se detectó un Hash Join. PostgreSQL crea una tabla hash para realizar la unión.",
+    "Merge Join": "Se detectó un Merge Join. PostgreSQL une resultados previamente ordenados.",
 }
 
 

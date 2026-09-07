@@ -94,7 +94,7 @@ def run_explain(query, params=None, analyze=True, buffers=True, verbose=True, fo
 
 def is_select(query):
     """
-    Valida que la query sea una unica sentencia de lectura (SELECT, o WITH ... SELECT).
+    Valida que la query sea una única sentencia de lectura (SELECT, o WITH ... SELECT).
 
     A diferencia de un simple startswith(), esto rechaza:
     - varias sentencias apiladas separadas por ';' (p. ej. 'SELECT 1; DROP TABLE film;'),

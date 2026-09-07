@@ -127,7 +127,7 @@ def run_benchmark():
                 if waste_sample is None:
                     waste_sample = wasted_work(metrics)
 
-                # Plan Width es una estimacion del planner: constante entre
+                # Plan Width es una estimación del planner: constante entre
                 # ejecuciones, basta con muestrearla una vez.
                 if ancho_fila_sample is None:
                     ancho_fila_sample = metrics["ancho_fila"]
@@ -224,7 +224,7 @@ def run_benchmark():
                 # Indicador de coste de transferencia (NO energia, NO medido):
                 # ancho_fila_estimado es Plan Width (bytes/fila estimados por el
                 # planner) y bytes_transferencia_estimados = ancho x filas.
-                # Es una ESTIMACION del planner, no trafico real; EXPLAIN ANALYZE
+                # Es una ESTIMACIóN del planner, no tráfico real; EXPLAIN ANALYZE
                 # descarta la salida y no transfiere nada al cliente.
                 "ancho_fila_estimado":
                     ancho_fila_sample,

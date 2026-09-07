@@ -1,8 +1,8 @@
 """
 Tests de energy/parser.py (extract_metrics).
 
-Se usan planes sinteticos: construidos a mano y con valores controlados, para
-poder calcular el resultado esperado de forma independiente de la funcion.
+Se usan planes sintéticos: construidos a mano y con valores controlados, para
+poder calcular el resultado esperado de forma independiente de la función.
 """
 
 import pytest
@@ -84,7 +84,7 @@ def test_filas_descartadas_se_multiplican_por_los_loops(make_plan):
 
 def test_filas_descartadas_recorre_el_arbol(make_plan):
     """
-    Cubre a la vez: recursion sobre "Plans", multiplicacion por "Actual Loops"
+    Cubre a la vez: recursión sobre "Plans", multiplicación por "Actual Loops"
     en varios niveles, y que se cuentan los dos tipos de filtro.
     """
     plan = make_plan({
