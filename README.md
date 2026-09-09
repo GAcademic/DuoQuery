@@ -35,7 +35,7 @@ Las pruebas unitarias se ejecutan con pytest dentro del contenedor de la aplicac
 
 docker exec duoquery-app pytest -v
 
-Para listar todos los casos de prueba sin llegar a ejecutarlos —por ejemplo, para comprobar cuántos hay—:
+Para listar todos los casos de prueba sin llegar a ejecutarlos. Por ejemplo, para comprobar cuántos hay:
 
 docker exec duoquery-app pytest --collect-only
 
@@ -73,4 +73,4 @@ docker cp duoquery-app:/app/validation/figures ./validation/
 
 **Autor:** Eva Molina Jiménez  
 **Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática  
-**Universidad Internacional de La Rioja (UNIR)** - 2026  
+**Universidad Internacional de La Rioja (UNIR)** - 2026 
