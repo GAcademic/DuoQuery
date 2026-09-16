@@ -16,39 +16,51 @@ Prototipo funcional, con fines didácticos, para el análisis de consultas SQL y
 - pandas: gestión de resultados y tablas.
 - sqlparse: validación de que las consultas sean únicamente SELECT.
 
-Las versiones concretas de las dependencias están establecidas en el fichero `requirements.txt`.  
+Las versiones concretas de las dependencias están establecidas en el fichero `requirements.txt`.
 Se incluye también `numpy` y `pyarrow` como dependencias secundarias, fijadas para evitar un problema de compatibilidad detectado entre versiones recientes de estas librerías.
 
 ## Ejecución
 
+```bash
 docker compose up -d --build
+```
 
 Una vez levantados los contenedores, la aplicación queda accesible desde el navegador en `http://localhost:8501`.
 
 ## Detener ejecución
 
+```bash
 docker compose down -v
+```
 
 ## Pruebas
 
 Las pruebas unitarias se ejecutan con pytest dentro del contenedor de la aplicación:
 
+```bash
 docker exec duoquery-app pytest -v
+```
 
-Para listar todos los casos de prueba sin llegar a ejecutarlos. Por ejemplo, para comprobar cuántos hay:
+Para listar todos los casos de prueba sin llegar a ejecutarlos (por ejemplo, para comprobar cuántos hay):
 
+```bash
 docker exec duoquery-app pytest --collect-only
+```
 
 ## Benchmark de validación
 
 El benchmark que genera los resultados experimentales se ejecuta también dentro del contenedor:
 
+```bash
 docker exec duoquery-app python -m validation.benchmark_runner
+```
 
 Los ficheros de resultados se copian del contenedor al host con:
 
+```bash
 docker cp duoquery-app:/app/validation/results_energy.csv ./validation/
 docker cp duoquery-app:/app/validation/results_efficiency.csv ./validation/
+```
 
 Las cifras del benchmark dependen del hardware de referencia; la definición de reproducibilidad y la máquina empleada se detallan en la memoria.
 
@@ -56,8 +68,10 @@ Las cifras del benchmark dependen del hardware de referencia; la definición de 
 
 Las figuras se generan a partir de los CSV, también dentro del contenedor, y se copian al host:
 
+```bash
 docker exec duoquery-app python -m validation.plots
 docker cp duoquery-app:/app/validation/figures ./validation/
+```
 
 ## Funcionalidades actuales
 
@@ -71,6 +85,12 @@ docker cp duoquery-app:/app/validation/figures ./validation/
 
 ## Créditos
 
-**Autor:** Eva Molina Jiménez  
-**Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática  
-**Universidad Internacional de La Rioja (UNIR)** - 2026 
+**Autor:** Eva Molina Jiménez
+**Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática
+**Universidad Internacional de La Rioja (UNIR)** - 2026
+
+## Licencia
+
+DuoQuery se distribuye bajo la licencia GNU Affero General Public License v3.0 (AGPL-3.0). Véase el fichero `LICENSE`.
+
+Los ficheros `initdb/02_pagila-schema.sql` e `initdb/03_pagila-data.sql` proceden de la base de datos de ejemplo [Pagila] (https://github.com/devrimgunduz/pagila), distribuida bajo la PostgreSQL License y conservan su licencia original.
