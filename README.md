@@ -85,12 +85,12 @@ docker cp duoquery-app:/app/validation/figures ./validation/
 
 ## Créditos
 
-**Autor:** Eva Molina Jiménez
-**Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática
-**Universidad Internacional de La Rioja (UNIR)** - 2026
+**Autor:** Eva Molina Jiménez  
+**Trabajo de Fin de Grado (TFG)** - Grado en Ingeniería Informática  
+**Universidad Internacional de La Rioja (UNIR)** - 2026  
 
 ## Licencia
 
 DuoQuery se distribuye bajo la licencia GNU Affero General Public License v3.0 (AGPL-3.0). Véase el fichero `LICENSE`.
 
-Los ficheros `initdb/02_pagila-schema.sql` e `initdb/03_pagila-data.sql` proceden de la base de datos de ejemplo [Pagila] (https://github.com/devrimgunduz/pagila), distribuida bajo la PostgreSQL License y conservan su licencia original.
+Los ficheros `initdb/02_pagila-schema.sql` e `initdb/03_pagila-data.sql` proceden de la base de datos de ejemplo [Pagila](https://github.com/devrimgunduz/pagila), distribuida bajo la PostgreSQL License y conservan su licencia original.
